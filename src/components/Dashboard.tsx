@@ -5,7 +5,7 @@ import UploadButton from './UploadButton'
 import { Ghost, Loader2, MessageSquare, Plus, Trash } from 'lucide-react'
 import Skeleton from 'react-loading-skeleton'
 import Link from 'next/link'
-// import { format } from 'date-fns'
+import { format } from 'date-fns'
 import { Button } from './ui/button'
 import { useState } from 'react'
 // import { getUserSubscriptionPlan } from '@/lib/stripe'
@@ -17,21 +17,21 @@ import { useState } from 'react'
 const Dashboard = () => {
   const [currentlyDeletingFile, setCurrentlyDeletingFile] = useState<string | null>(null)
 
-  // const utils = trpc.useContext()
+  const utils = trpc.useUtils()
 
   const { data: files, isLoading } = trpc.getUserFiles.useQuery()
 
-  // const { mutate: deleteFile } = trpc.deleteFile.useMutation({
-  //   onSuccess: () => {
-  //     utils.getUserFiles.invalidate()
-  //   },
-  //   onMutate({ id }) {
-  //     setCurrentlyDeletingFile(id)
-  //   },
-  //   onSettled() {
-  //     setCurrentlyDeletingFile(null)
-  //   }
-  // })
+  const { mutate: deleteFile } = trpc.deleteFile.useMutation({
+    onSuccess: () => {
+      utils.getUserFiles.invalidate()
+    },
+    onMutate({ id }) {
+      setCurrentlyDeletingFile(id)
+    },
+    onSettled() {
+      setCurrentlyDeletingFile(null)
+    }
+  })
 
   return (
     <main className="mx-auto max-w-7xl md:p-10">
@@ -65,7 +65,7 @@ const Dashboard = () => {
                 <div className="mt-4 grid grid-cols-3 place-items-center gap-6 px-6 py-2 text-xs text-zinc-500">
                   <div className="flex items-center gap-2">
                     <Plus className="h-4 w-4" />
-                    {/* {format(new Date(file.createdAt), 'MMM yyyy')} */}
+                    {format(new Date(file.createdAt), 'MMM yyyy')}
                   </div>
 
                   <div className="flex items-center gap-2">
@@ -74,7 +74,7 @@ const Dashboard = () => {
                   </div>
 
                   <Button
-                    // onClick={() => deleteFile({ id: file.id })}
+                    onClick={() => deleteFile({ id: file.id })}
                     size="sm"
                     className="w-full"
                     variant="destructive"
