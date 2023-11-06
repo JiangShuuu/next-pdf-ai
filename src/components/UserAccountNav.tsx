@@ -9,7 +9,7 @@ import {
 import { Button } from './ui/button'
 import { Avatar, AvatarFallback } from './ui/avatar'
 import Image from 'next/image'
-import { Icons } from './ui/Icons'
+// import { Icons } from './Icons'
 import Link from 'next/link'
 import { Gem } from 'lucide-react'
 import { LogoutLink } from '@kinde-oss/kinde-auth-nextjs/server'
@@ -35,7 +35,7 @@ const UserAccountNav = async ({ email, imageUrl, name }: UserAccountNavProps) =>
             ) : (
               <AvatarFallback>
                 <span className="sr-only">{name}</span>
-                <Icons.user className="h-4 w-4 text-zinc-900" />
+                {/* <Icons.user className="h-4 w-4 text-zinc-900" /> */}
               </AvatarFallback>
             )}
           </Avatar>

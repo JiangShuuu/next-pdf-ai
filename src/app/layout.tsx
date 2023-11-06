@@ -4,6 +4,7 @@ import './globals.css'
 import { cn } from '@/lib/utils'
 import Navbar from '@/components/Navbar'
 import Providers from '@/components/Providers'
+import { Toaster } from '@/components/ui/toaster'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -17,6 +18,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     <html lang="en" className="light">
       <Providers>
         <body className={cn('grainy min-h-screen font-sans antialiased', inter.className)}>
+          <Toaster />
           <Navbar />
           {children}
         </body>

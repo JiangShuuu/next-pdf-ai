@@ -1,6 +1,6 @@
 'use client'
 
-import { useRouter, useSearchParams } from 'next/navigation'
+import { redirect, useRouter, useSearchParams } from 'next/navigation'
 import { trpc } from '../_trpc/client'
 import { Loader2 } from 'lucide-react'
 
@@ -19,7 +19,7 @@ const Page = () => {
     },
     onError: (err) => {
       if (err.data?.code === 'UNAUTHORIZED') {
-        router.push('/sign-in')
+        router.push('/api/auth/login')
       }
     },
     retry: true,

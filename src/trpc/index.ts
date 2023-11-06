@@ -9,7 +9,12 @@ export const appRouter = router({
     const { getUser } = getKindeServerSession()
     const user = getUser()
 
-    if (!user.id || !user.email) throw new TRPCError({ code: 'UNAUTHORIZED' })
+    console.log('getUser', user)
+
+    if (!user || !user.id || !user.email) {
+      console.log('notnot')
+      throw new TRPCError({ code: 'UNAUTHORIZED' })
+    }
 
     // check if the user is in the database
     const dbUser = await db.user.findFirst({
@@ -39,6 +44,22 @@ export const appRouter = router({
       }
     })
   }),
+  getFile: privateProcedure
+    .input(z.object({ key: z.string() }))
+    .mutation(async ({ ctx, input }) => {
+      const { userId } = ctx
+
+      const file = await db.file.findFirst({
+        where: {
+          key: input.key,
+          userId
+        }
+      })
+
+      if (!file) throw new TRPCError({ code: 'NOT_FOUND' })
+
+      return file
+    }),
   deleteFile: privateProcedure
     .input(z.object({ id: z.string() }))
     .mutation(async ({ ctx, input }) => {
