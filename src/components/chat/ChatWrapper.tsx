@@ -25,6 +25,8 @@ const ChatWrapper = ({ fileId, isSubscribed }: ChatWrapperProps) => {
     }
   )
 
+  console.log('getStatus', data)
+
   if (isLoading)
     return (
       <div className="relative flex min-h-full flex-col justify-between gap-2 divide-y divide-zinc-200 bg-zinc-50">

@@ -19,8 +19,7 @@ const middleware = async () => {
 
   // const subscriptionPlan = await getUserSubscriptionPlan()
 
-  // return { subscriptionPlan, userId: user.id }
-  return { userId: user.id }
+  return { subscriptionPlan: true, userId: user.id }
 }
 
 const onUploadComplete = async ({
@@ -63,7 +62,7 @@ const onUploadComplete = async ({
 
     const pagesAmt = pageLevelDocs.length
 
-    // const { subscriptionPlan } = metadata
+    const { subscriptionPlan } = metadata
     // const { isSubscribed } = subscriptionPlan
 
     // const isProExceeded = pagesAmt > PLANS.find((plan) => plan.name === 'Pro')!.pagesPerPdf
@@ -80,9 +79,18 @@ const onUploadComplete = async ({
     //   })
     // }
 
+    await db.file.update({
+      data: {
+        uploadStatus: 'FAILED'
+      },
+      where: {
+        id: createdFile.id
+      }
+    })
+
     // vectorize and index entire document
     const pinecone = await getPineconeClient()
-    const pineconeIndex = pinecone.Index('nextpdfsass')
+    const pineconeIndex = pinecone.Index('pdf-saas')
 
     const embeddings = new OpenAIEmbeddings({
       openAIApiKey: process.env.OPENAI_API_KEY

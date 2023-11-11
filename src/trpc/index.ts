@@ -3,8 +3,8 @@ import { privateProcedure, publicProcedure, router } from './trpc'
 import { TRPCError } from '@trpc/server'
 import { db } from '@/db'
 import { z } from 'zod'
-// import { INFINITE_QUERY_LIMIT } from '@/config/infinite-query'
 import { absoluteUrl } from '@/lib/utils'
+import { INFINITE_QUERY_LIMIT } from '@/config/infinite-query'
 // import { getUserSubscriptionPlan, stripe } from '@/lib/stripe'
 // import { PLANS } from '@/config/stripe'
 
@@ -101,7 +101,7 @@ export const appRouter = router({
     .query(async ({ ctx, input }) => {
       const { userId } = ctx
       const { fileId, cursor } = input
-      // const limit = input.limit ?? INFINITE_QUERY_LIMIT
+      const limit = input.limit ?? INFINITE_QUERY_LIMIT
 
       const file = await db.file.findFirst({
         where: {
@@ -113,7 +113,7 @@ export const appRouter = router({
       if (!file) throw new TRPCError({ code: 'NOT_FOUND' })
 
       const messages = await db.message.findMany({
-        // take: limit + 1,
+        take: limit + 1,
         where: {
           fileId
         },
@@ -130,10 +130,10 @@ export const appRouter = router({
       })
 
       let nextCursor: typeof cursor | undefined = undefined
-      // if (messages.length > limit) {
-      //   const nextItem = messages.pop()
-      //   nextCursor = nextItem?.id
-      // }
+      if (messages.length > limit) {
+        const nextItem = messages.pop()
+        nextCursor = nextItem?.id
+      }
 
       return {
         messages,
@@ -151,7 +151,7 @@ export const appRouter = router({
         }
       })
 
-      if (!file) return { status: 'PENDING' as const }
+      if (!file) return { status: 'F' as const }
 
       return { status: file.uploadStatus }
     }),
