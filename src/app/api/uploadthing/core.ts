@@ -62,34 +62,34 @@ const onUploadComplete = async ({
 
     const pagesAmt = pageLevelDocs.length
 
-    const { subscriptionPlan } = metadata
-    const { isSubscribed } = subscriptionPlan
+    // const { subscriptionPlan } = metadata
+    // const { isSubscribed } = subscriptionPlan
 
-    const isProExceeded = pagesAmt > PLANS.find((plan) => plan.name === 'Pro')!.pagesPerPdf
-    const isFreeExceeded = pagesAmt > PLANS.find((plan) => plan.name === 'Free')!.pagesPerPdf
+    // const isProExceeded = pagesAmt > PLANS.find((plan) => plan.name === 'Pro')!.pagesPerPdf
+    // const isFreeExceeded = pagesAmt > PLANS.find((plan) => plan.name === 'Free')!.pagesPerPdf
 
-    if ((isSubscribed && isProExceeded) || (!isSubscribed && isFreeExceeded)) {
-      await db.file.update({
-        data: {
-          uploadStatus: 'FAILED'
-        },
-        where: {
-          id: createdFile.id
-        }
-      })
-    }
+    // if ((isSubscribed && isProExceeded) || (!isSubscribed && isFreeExceeded)) {
+    //   await db.file.update({
+    //     data: {
+    //       uploadStatus: 'FAILED'
+    //     },
+    //     where: {
+    //       id: createdFile.id
+    //     }
+    //   })
+    // }
 
     // vectorize and index entire document
     const pinecone = await getPineconeClient()
-    const pineconeIndex = pinecone.Index('pdf-saas')
+    const pineconeIndex = pinecone.Index('nextpdfsass')
 
     const embeddings = new OpenAIEmbeddings({
       openAIApiKey: process.env.OPENAI_API_KEY
     })
 
     await PineconeStore.fromDocuments(pageLevelDocs, embeddings, {
-      pineconeIndex,
-      namespace: createdFile.id
+      // @ts-ignore
+      pineconeIndex
     })
 
     await db.file.update({

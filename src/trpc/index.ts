@@ -3,8 +3,8 @@ import { privateProcedure, publicProcedure, router } from './trpc'
 import { TRPCError } from '@trpc/server'
 import { db } from '@/db'
 import { z } from 'zod'
-import { absoluteUrl } from '@/lib/utils'
 import { INFINITE_QUERY_LIMIT } from '@/config/infinite-query'
+import { absoluteUrl } from '@/lib/utils'
 import { getUserSubscriptionPlan, stripe } from '@/lib/stripe'
 import { PLANS } from '@/config/stripe'
 
@@ -151,7 +151,7 @@ export const appRouter = router({
         }
       })
 
-      if (!file) return { status: 'F' as const }
+      if (!file) return { status: 'PENDING' as const }
 
       return { status: file.uploadStatus }
     }),

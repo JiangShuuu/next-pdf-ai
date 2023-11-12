@@ -47,11 +47,11 @@ export const POST = async (req: NextRequest) => {
   })
 
   const pinecone = await getPineconeClient()
-  const pineconeIndex = pinecone.Index('quill')
+  const pineconeIndex = pinecone.Index('nextpdfsass')
 
   const vectorStore = await PineconeStore.fromExistingIndex(embeddings, {
-    pineconeIndex,
-    namespace: file.id
+    // @ts-ignore
+    pineconeIndex
   })
 
   const results = await vectorStore.similaritySearch(message, 4)
