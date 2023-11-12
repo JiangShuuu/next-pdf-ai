@@ -14,7 +14,7 @@ const MobileNav = ({ isAuth }: { isAuth: boolean }) => {
 
   useEffect(() => {
     if (isOpen) toggleOpen()
-  }, [isOpen, pathname])
+  }, [pathname])
 
   const closeOnCurrent = (href: string) => {
     if (pathname === href) {
@@ -24,7 +24,7 @@ const MobileNav = ({ isAuth }: { isAuth: boolean }) => {
 
   return (
     <div className="sm:hidden">
-      <Menu onClick={toggleOpen} className="relative z-50 h-5 w-5 text-zinc-700" />
+      <Menu onClick={toggleOpen} className="relative z-50 h-5 w-5 cursor-pointer text-zinc-700" />
 
       {isOpen ? (
         <div className="fixed inset-0 z-0 w-full animate-in fade-in-20 slide-in-from-top-5">
