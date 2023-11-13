@@ -5,6 +5,7 @@ import { ArrowRight } from 'lucide-react'
 import { buttonVariants } from '@/components/ui/button'
 import Image from 'next/image'
 import { trpc } from '@/app/_trpc/client'
+import { signIn } from 'next-auth/react'
 
 export default function Home() {
   const mutation = trpc.registerAccount.useMutation({
@@ -12,11 +13,24 @@ export default function Home() {
       console.log('result', result)
     }
   })
-  const test = async () => {
+  const register = async () => {
     mutation.mutate({
       email: 'globe01@gmail.com',
       name: 'john',
       password: 'qwer1234'
+    })
+  }
+
+  const login = async () => {
+    const data = {
+      email: 'globe01@gmail.com',
+      password: 'qwer1234'
+    }
+    signIn('credentials', {
+      ...data,
+      redirect: false
+    }).then((callback) => {
+      console.log('callback', callback)
     })
   }
 
@@ -31,9 +45,18 @@ export default function Home() {
             size: 'lg',
             className: 'mt-5'
           })}
-          onClick={() => test()}
+          onClick={() => register()}
         >
-          testButton
+          registerButton
+        </button>
+        <button
+          className={buttonVariants({
+            size: 'lg',
+            className: 'mt-5'
+          })}
+          onClick={() => login()}
+        >
+          loginButton
         </button>
         <h1 className="max-w-4xl text-5xl font-bold md:text-6xl lg:text-7xl">
           Chat with your <span className="text-blue-600">documents</span> in seconds.
