@@ -7,6 +7,7 @@ import { INFINITE_QUERY_LIMIT } from '@/config/infinite-query'
 import { absoluteUrl } from '@/lib/utils'
 import { getUserSubscriptionPlan, stripe } from '@/lib/stripe'
 import { PLANS } from '@/config/stripe'
+import bcrypt from 'bcrypt'
 
 export const appRouter = router({
   authCallback: publicProcedure.query(async () => {
@@ -89,7 +90,32 @@ export const appRouter = router({
 
     return { url: stripeSession.url }
   }),
+  registerAccount: publicProcedure
+    .input(
+      z.object({
+        email: z.string(),
+        name: z.string(),
+        password: z.string()
+      })
+    )
+    .mutation(async ({ ctx, input }) => {
+      const { email, name, password } = input
 
+      const hashedPassword = await bcrypt.hash(password, 12)
+
+      const user = await db.user.create({
+        data: {
+          email,
+          name,
+          hashedPassword
+        }
+      })
+
+      return {
+        success: true,
+        data: user
+      }
+    }),
   getFileMessages: privateProcedure
     .input(
       z.object({
