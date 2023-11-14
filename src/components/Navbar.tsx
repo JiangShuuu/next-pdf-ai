@@ -2,7 +2,6 @@
 import Link from 'next/link'
 import MaxWidthWrapper from './MaxWidthWrapper'
 import { buttonVariants } from './ui/button'
-// import { LoginLink, RegisterLink, getKindeServerSession } from '@kinde-oss/kinde-auth-nextjs/server'
 import { ArrowRight } from 'lucide-react'
 import UserAccountNav from './UserAccountNav'
 import MobileNav from './MobileNav'
@@ -17,8 +16,6 @@ interface NavbarProps {
 }
 
 const Navbar = ({ currentUser }: NavbarProps) => {
-  // const { getUser } = getKindeServerSession()
-  // const user = getUser()
   const loginModal = useLoginModal()
   const user = currentUser
 

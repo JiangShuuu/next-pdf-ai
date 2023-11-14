@@ -45,7 +45,7 @@ export function constructMetadata({
       creator: '@joshtriedcoding'
     },
     icons,
-    metadataBase: new URL(`${process.env.KINDE_SITE_URL}`),
+    // metadataBase: new URL(`${process.env.KINDE_SITE_URL}`),
     themeColor: '#FFF',
     ...(noIndex && {
       robots: {

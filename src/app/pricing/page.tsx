@@ -4,13 +4,12 @@ import { buttonVariants } from '@/components/ui/button'
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip'
 import { PLANS } from '@/config/stripe'
 import { cn } from '@/lib/utils'
-import { getKindeServerSession } from '@kinde-oss/kinde-auth-nextjs/server'
 import { ArrowRight, Check, HelpCircle, Minus } from 'lucide-react'
 import Link from 'next/link'
+import getCurrentUser from '@/actions/getCurrentUser'
 
-const Page = () => {
-  const { getUser } = getKindeServerSession()
-  const user = getUser()
+const Page = async () => {
+  const user = await getCurrentUser()
 
   const pricingItems = [
     {

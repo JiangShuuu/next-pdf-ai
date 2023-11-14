@@ -1,5 +1,4 @@
 import { getServerSession } from 'next-auth/next'
-
 import { authOptions } from '@/pages/api/auth/[...nextauth]'
 import { db } from '@/db'
 
@@ -10,8 +9,6 @@ export async function getSession() {
 export default async function getCurrentUser() {
   try {
     const session = await getSession()
-
-    console.log('session', session)
 
     if (!session?.user?.email) {
       return null
@@ -28,6 +25,7 @@ export default async function getCurrentUser() {
     }
 
     return {
+      id: currentUser.id,
       name: currentUser.name,
       email: currentUser.email,
       image: currentUser.image
