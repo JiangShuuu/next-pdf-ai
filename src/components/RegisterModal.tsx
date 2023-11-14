@@ -56,20 +56,21 @@ export default function RegisterModal({ open, setOpen }: RegisterModalProps) {
       }
       change()
     },
-    onError: (result) => {
-      console.log('Error:: Register', result)
-      // if (result === 'TRPCClientError: have same account!') {
-      // }
-      setError('email', {
-        type: 'manual',
-        message: 'Dont Forget Your Email Should Be Cool!'
-      })
-      // toast({
-      //   variant: 'destructive',
-      //   title: 'Uh oh! Something went wrong.',
-      //   description: `${result}`
-      // })
-      // change()
+    onError: ({ data }) => {
+      console.log('Error:: Register', data)
+      if (data && data.code === 'PARSE_ERROR') {
+        setError('email', {
+          type: 'manual',
+          message: 'This Email Already Register!'
+        })
+      } else {
+        toast({
+          variant: 'destructive',
+          title: 'Uh oh! Something went wrong.',
+          description: `${data?.code}`
+        })
+        change()
+      }
     }
   })
 
