@@ -3,7 +3,6 @@ import {
   Dialog,
   DialogContent,
   DialogDescription,
-  DialogFooter,
   DialogHeader,
   DialogTitle
 } from '@/components/ui/dialog'
@@ -35,6 +34,7 @@ export default function RegisterModal({ open, setOpen }: RegisterModalProps) {
     register,
     reset,
     handleSubmit,
+    setError,
     formState: { errors }
   } = useForm<FieldValues>({
     resolver: zodResolver(formSchema),
@@ -57,8 +57,19 @@ export default function RegisterModal({ open, setOpen }: RegisterModalProps) {
       change()
     },
     onError: (result) => {
-      console.error(result)
-      change()
+      console.log('Error:: Register', result)
+      // if (result === 'TRPCClientError: have same account!') {
+      // }
+      setError('email', {
+        type: 'manual',
+        message: 'Dont Forget Your Email Should Be Cool!'
+      })
+      // toast({
+      //   variant: 'destructive',
+      //   title: 'Uh oh! Something went wrong.',
+      //   description: `${result}`
+      // })
+      // change()
     }
   })
 

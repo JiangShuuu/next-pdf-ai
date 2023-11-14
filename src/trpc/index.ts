@@ -103,6 +103,14 @@ export const appRouter = router({
 
       const hashedPassword = await bcrypt.hash(password, 12)
 
+      const findUser = await db.user.findFirst({
+        where: {
+          email
+        }
+      })
+
+      if (findUser) throw new TRPCError({ code: 'PARSE_ERROR', message: 'have same account!' })
+
       const user = await db.user.create({
         data: {
           email,
