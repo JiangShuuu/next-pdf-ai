@@ -1,14 +1,26 @@
+'use client'
 import Link from 'next/link'
 import MaxWidthWrapper from './MaxWidthWrapper'
 import { buttonVariants } from './ui/button'
-import { LoginLink, RegisterLink, getKindeServerSession } from '@kinde-oss/kinde-auth-nextjs/server'
+// import { LoginLink, RegisterLink, getKindeServerSession } from '@kinde-oss/kinde-auth-nextjs/server'
 import { ArrowRight } from 'lucide-react'
 import UserAccountNav from './UserAccountNav'
 import MobileNav from './MobileNav'
+import useLoginModal from '@/app/hooks/useLoginModal'
 
-const Navbar = () => {
-  const { getUser } = getKindeServerSession()
-  const user = getUser()
+interface NavbarProps {
+  currentUser: {
+    name: string | null
+    email: string | null
+    image: string | null
+  } | null
+}
+
+const Navbar = ({ currentUser }: NavbarProps) => {
+  // const { getUser } = getKindeServerSession()
+  // const user = getUser()
+  const loginModal = useLoginModal()
+  const user = currentUser
 
   return (
     <nav className="sticky inset-x-0 top-0 z-30 h-14 w-full border-b border-gray-200 bg-white/75 backdrop-blur-lg transition-all">
@@ -32,21 +44,22 @@ const Navbar = () => {
                 >
                   Pricing
                 </Link>
-                <LoginLink
+                <button
                   className={buttonVariants({
                     variant: 'ghost',
                     size: 'sm'
                   })}
+                  onClick={loginModal.onOpen}
                 >
                   Sign in
-                </LoginLink>
-                <RegisterLink
+                </button>
+                <button
                   className={buttonVariants({
                     size: 'sm'
                   })}
                 >
                   Get started <ArrowRight className="ml-1.5 h-5 w-5" />
-                </RegisterLink>
+                </button>
               </>
             ) : (
               <>
@@ -61,13 +74,9 @@ const Navbar = () => {
                 </Link>
 
                 <UserAccountNav
-                  name={
-                    !user.given_name || !user.family_name
-                      ? 'Your Account'
-                      : `${user.given_name} ${user.family_name}`
-                  }
+                  name={user.name || 'Account'}
                   email={user.email ?? ''}
-                  imageUrl={user.picture ?? ''}
+                  imageUrl={user.image ?? ''}
                 />
               </>
             )}

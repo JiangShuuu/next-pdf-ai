@@ -3,6 +3,7 @@ import React from 'react'
 import { buttonVariants } from '@/components/ui/button'
 import useRegisterModal from '@/app/hooks/useRegisterModal'
 import useLoginModal from '../hooks/useLoginModal'
+import { signOut } from 'next-auth/react'
 
 export default function Page() {
   const registerModal = useRegisterModal()
@@ -27,6 +28,15 @@ export default function Page() {
         onClick={loginModal.onOpen}
       >
         onLoginButton
+      </button>
+      <button
+        className={buttonVariants({
+          size: 'lg',
+          className: 'mt-5'
+        })}
+        onClick={() => signOut()}
+      >
+        onSignOut
       </button>
     </div>
   )

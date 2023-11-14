@@ -17,7 +17,7 @@ import useLoginModal from '@/app/hooks/useLoginModal'
 import { FcGoogle } from 'react-icons/fc'
 import { FaGithub } from 'react-icons/fa'
 import useRegisterModal from '@/app/hooks/useRegisterModal'
-
+import { useRouter } from 'next/navigation'
 const formSchema = z.object({
   email: z.string().email(),
   password: z.string()
@@ -26,6 +26,7 @@ const formSchema = z.object({
 export default function LoginModal() {
   const loginModal = useLoginModal()
   const registerModal = useRegisterModal()
+  const router = useRouter()
 
   const {
     register,
@@ -59,6 +60,7 @@ export default function LoginModal() {
         toast({
           title: 'Success'
         })
+        router.refresh()
       } else {
         toast({
           variant: 'destructive',

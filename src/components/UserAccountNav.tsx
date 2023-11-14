@@ -1,3 +1,4 @@
+'use client'
 import { getUserSubscriptionPlan } from '@/lib/stripe'
 import {
   DropdownMenu,
@@ -12,7 +13,7 @@ import Image from 'next/image'
 import { Icons } from './Icons'
 import Link from 'next/link'
 import { Gem } from 'lucide-react'
-import { LogoutLink } from '@kinde-oss/kinde-auth-nextjs/server'
+import { signOut } from 'next-auth/react'
 
 interface UserAccountNavProps {
   email: string | undefined
@@ -20,8 +21,8 @@ interface UserAccountNavProps {
   imageUrl: string
 }
 
-const UserAccountNav = async ({ email, imageUrl, name }: UserAccountNavProps) => {
-  const subscriptionPlan = await getUserSubscriptionPlan()
+const UserAccountNav = ({ email, imageUrl, name }: UserAccountNavProps) => {
+  // const subscriptionPlan = await getUserSubscriptionPlan()
 
   return (
     <DropdownMenu>
@@ -35,7 +36,7 @@ const UserAccountNav = async ({ email, imageUrl, name }: UserAccountNavProps) =>
             ) : (
               <AvatarFallback>
                 <span className="sr-only">{name}</span>
-                {/* <Icons.user className="h-4 w-4 text-zinc-900" /> */}
+                <Icons.user className="h-4 w-4 text-zinc-900" />
               </AvatarFallback>
             )}
           </Avatar>
@@ -57,19 +58,19 @@ const UserAccountNav = async ({ email, imageUrl, name }: UserAccountNavProps) =>
         </DropdownMenuItem>
 
         <DropdownMenuItem asChild>
-          {subscriptionPlan?.isSubscribed ? (
+          {/* {subscriptionPlan?.isSubscribed ? (
             <Link href="/dashboard/billing">Manage Subscription</Link>
           ) : (
             <Link href="/pricing">
               Upgrade <Gem className="ml-1.5 h-4 w-4 text-blue-600" />
             </Link>
-          )}
+          )} */}
         </DropdownMenuItem>
 
         <DropdownMenuSeparator />
 
-        <DropdownMenuItem className="cursor-pointer">
-          <LogoutLink>Log out</LogoutLink>
+        <DropdownMenuItem className="cursor-pointer" onClick={() => signOut()}>
+          <p>Log out</p>
         </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>
