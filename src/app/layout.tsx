@@ -5,7 +5,7 @@ import Navbar from '@/components/Navbar'
 import Providers from '@/components/Providers'
 import { Toaster } from '@/components/ui/toaster'
 import { ModalProvider } from '@/components/providers/modal-provider'
-import getCurrentUser from './actions/getCurrentUser'
+import getCurrentUser from '../actions/getCurrentUser'
 const inter = Inter({ subsets: ['latin'] })
 
 export const metadata = constructMetadata()

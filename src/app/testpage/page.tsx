@@ -1,8 +1,8 @@
 'use client'
 import React from 'react'
 import { buttonVariants } from '@/components/ui/button'
-import useRegisterModal from '@/app/hooks/useRegisterModal'
-import useLoginModal from '../hooks/useLoginModal'
+import useRegisterModal from '@/hooks/useRegisterModal'
+import useLoginModal from '../../hooks/useLoginModal'
 import { signOut } from 'next-auth/react'
 
 export default function Page() {

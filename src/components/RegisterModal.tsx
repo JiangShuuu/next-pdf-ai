@@ -13,8 +13,8 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import * as z from 'zod'
 import { trpc } from '@/app/_trpc/client'
 import { useToast } from './ui/use-toast'
-import useRegisterModal from '@/app/hooks/useRegisterModal'
-import useLoginModal from '@/app/hooks/useLoginModal'
+import useRegisterModal from '@/hooks/useRegisterModal'
+import useLoginModal from '@/hooks/useLoginModal'
 
 const formSchema = z.object({
   email: z.string().email(),

@@ -13,10 +13,10 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import * as z from 'zod'
 import { signIn } from 'next-auth/react'
 import { useToast } from './ui/use-toast'
-import useLoginModal from '@/app/hooks/useLoginModal'
+import useLoginModal from '@/hooks/useLoginModal'
 import { FcGoogle } from 'react-icons/fc'
 import { FaGithub } from 'react-icons/fa'
-import useRegisterModal from '@/app/hooks/useRegisterModal'
+import useRegisterModal from '@/hooks/useRegisterModal'
 import { useRouter } from 'next/navigation'
 const formSchema = z.object({
   email: z.string().email(),
@@ -134,10 +134,20 @@ export default function LoginModal() {
             <div className="text-center">
               <p className="mb-5 text-sm font-bold">Third-party Login</p>
               <div className="flex items-center justify-center space-x-6">
-                <Button variant="outline" size="icon" onClick={() => signIn('google')}>
+                <Button
+                  type="button"
+                  variant="outline"
+                  size="icon"
+                  onClick={() => signIn('google')}
+                >
                   <FcGoogle className="h-6 w-6" />
                 </Button>
-                <Button variant="outline" size="icon" onClick={() => signIn('github')}>
+                <Button
+                  type="button"
+                  variant="outline"
+                  size="icon"
+                  onClick={() => signIn('github')}
+                >
                   <FaGithub className="h-6 w-6" />
                 </Button>
               </div>

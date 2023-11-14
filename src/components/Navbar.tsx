@@ -6,7 +6,7 @@ import { buttonVariants } from './ui/button'
 import { ArrowRight } from 'lucide-react'
 import UserAccountNav from './UserAccountNav'
 import MobileNav from './MobileNav'
-import useLoginModal from '@/app/hooks/useLoginModal'
+import useLoginModal from '@/hooks/useLoginModal'
 
 interface NavbarProps {
   currentUser: {
