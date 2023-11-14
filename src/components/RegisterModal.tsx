@@ -61,7 +61,7 @@ export default function RegisterModal({ open, setOpen }: RegisterModalProps) {
       if (data && data.code === 'PARSE_ERROR') {
         setError('email', {
           type: 'manual',
-          message: 'This Email Already Register!'
+          message: 'This Email has already been registered.'
         })
       } else {
         toast({
