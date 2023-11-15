@@ -54,6 +54,7 @@ const Navbar = ({ currentUser }: NavbarProps) => {
                   className={buttonVariants({
                     size: 'sm'
                   })}
+                  onClick={loginModal.onOpen}
                 >
                   Get started <ArrowRight className="ml-1.5 h-5 w-5" />
                 </button>

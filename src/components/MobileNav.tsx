@@ -4,13 +4,14 @@ import { ArrowRight, Menu } from 'lucide-react'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { useEffect, useState } from 'react'
-
+import useLoginModal from '@/hooks/useLoginModal'
 const MobileNav = ({ isAuth }: { isAuth: boolean }) => {
   const [isOpen, setOpen] = useState<boolean>(false)
 
   const toggleOpen = () => setOpen((prev) => !prev)
 
   const pathname = usePathname()
+  const loginModal = useLoginModal()
 
   useEffect(() => {
     if (isOpen) toggleOpen()
@@ -33,7 +34,7 @@ const MobileNav = ({ isAuth }: { isAuth: boolean }) => {
               <>
                 <li>
                   <Link
-                    onClick={() => closeOnCurrent('/sign-up')}
+                    onClick={loginModal.onOpen}
                     className="flex w-full items-center font-semibold text-green-600"
                     href="/sign-up"
                   >
@@ -44,7 +45,7 @@ const MobileNav = ({ isAuth }: { isAuth: boolean }) => {
                 <li className="my-3 h-px w-full bg-gray-300" />
                 <li>
                   <Link
-                    onClick={() => closeOnCurrent('/sign-in')}
+                    onClick={loginModal.onOpen}
                     className="flex w-full items-center font-semibold"
                     href="/sign-in"
                   >

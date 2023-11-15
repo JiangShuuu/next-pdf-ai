@@ -1,11 +1,12 @@
-'use client'
 import MaxWidthWrapper from '@/components/MaxWidthWrapper'
 import Link from 'next/link'
-import { ArrowRight } from 'lucide-react'
-import { buttonVariants } from '@/components/ui/button'
 import Image from 'next/image'
+import getCurrentUser from '@/actions/getCurrentUser'
+import GetStartButton from '@/components/GetStartButton'
 
-export default function Home() {
+export default async function Home() {
+  const user = await getCurrentUser()
+
   return (
     <>
       <MaxWidthWrapper className="mb-12 mt-28 flex flex-col items-center justify-center text-center sm:mt-40">
@@ -20,16 +21,7 @@ export default function Home() {
           start asking questions right away.
         </p>
 
-        <Link
-          className={buttonVariants({
-            size: 'lg',
-            className: 'mt-5'
-          })}
-          href="/dashboard"
-          target="_blank"
-        >
-          Get started <ArrowRight className="ml-2 h-5 w-5" />
-        </Link>
+        <GetStartButton user={user} />
       </MaxWidthWrapper>
       {/* value proposition section */}
       <div>
