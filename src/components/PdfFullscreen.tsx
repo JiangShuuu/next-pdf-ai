@@ -33,7 +33,7 @@ const PdfFullscreen = ({ fileUrl }: PdfFullscreenProps) => {
           <Expand className="h-4 w-4" />
         </Button>
       </DialogTrigger>
-      <DialogContent className="w-full max-w-7xl">
+      <DialogContent className="w-full max-w-7xl overflow-y-scroll">
         <SimpleBar autoHide={false} className="mt-6 max-h-[calc(100vh-10rem)]">
           <div ref={ref}>
             <Document

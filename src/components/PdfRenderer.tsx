@@ -86,7 +86,6 @@ const PdfRenderer = ({ url }: PdfRendererProps) => {
           >
             <ChevronDown className="h-4 w-4" />
           </Button>
-
           <div className="flex items-center gap-1.5">
             <Input
               {...register('page')}
@@ -102,7 +101,6 @@ const PdfRenderer = ({ url }: PdfRendererProps) => {
               <span>{numPages ?? 'x'}</span>
             </p>
           </div>
-
           <Button
             disabled={numPages === undefined || currPage === numPages}
             onClick={() => {

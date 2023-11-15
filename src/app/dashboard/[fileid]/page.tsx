@@ -16,12 +16,12 @@ const Page = async ({ params }: PageProps) => {
   const { fileid } = params
 
   const user = await getCurrentUser()
-  const { toast } = useToast()
+  // const { toast } = useToast()
 
   if (!user || !user.id) {
-    toast({
-      title: 'need Signin'
-    })
+    // toast({
+    //   title: 'need Signin'
+    // })
 
     redirect('/dashboard')
   }
@@ -49,7 +49,7 @@ const Page = async ({ params }: PageProps) => {
         </div>
 
         <div className="flex-[0.75] shrink-0 border-t border-gray-200 lg:w-96 lg:border-l lg:border-t-0">
-          <ChatWrapper isSubscribed={true} fileId={file.id} />
+          <ChatWrapper isSubscribed={false} fileId={file.id} />
         </div>
       </div>
     </div>
