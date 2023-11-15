@@ -1,0 +1,72 @@
+name: next-pdf-saas Build and Deploy
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  docker:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3 # git clone 專案
+
+      - name: create env file
+        run: |
+          cd client-chat
+          touch .env
+          echo DATABASE_URL=${{ secrets.DATABASE_URL }} >> .env
+          echo UPLOADTHING_SECRET=${{ secrets.UPLOADTHING_SECRET }} >> .env
+          echo UPLOADTHING_APP_ID=${{ secrets.UPLOADTHING_APP_ID }} >> .env
+          echo PINECONE_API_KEY=${{ secrets.PINECONE_API_KEY }} >> .env
+          echo OPENAI_API_KEY=${{ secrets.OPENAI_API_KEY }} >> .env
+          echo STRIPE_PRODUCT_ID=${{ secrets.STRIPE_PRODUCT_ID }} >> .env
+          echo STRIPE_SECRET_KEY=${{ secrets.STRIPE_SECRET_KEY }} >> .env
+          echo STRIPE_WEBHOOK_SECRET=${{ secrets.STRIPE_WEBHOOK_SECRET }} >> .env
+          echo GITHUB_ID=${{ secrets.GITHUB_ID }} >> .env
+          echo GITHUB_SECRET=${{ secrets.GITHUB_SECRET }} >> .env
+          echo GOOGLE_CLIENT_ID=${{ secrets.GOOGLE_CLIENT_ID }} >> .env
+          echo GOOGLE_CLIENT_SECRET=${{ secrets.GOOGLE_CLIENT_SECRET }} >> .env
+          echo NEXTAUTH_SECRET=${{ secrets.NEXTAUTH_SECRET }} >> .env
+
+      - name: Use Node.js Install & Run build # Node
+        uses: actions/setup-node@v3
+        with:
+          node-version: 20
+
+      - name: cd file and install
+        run: |
+          cd client-chat
+          pnpm install
+          pnpm run build
+
+      - name: Set up QEMU
+        uses: docker/setup-qemu-action@v2
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v2
+
+      - name: Login to DockerHub
+        uses: docker/login-action@v2
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+
+      - name: Build and push
+        uses: docker/build-push-action@v3
+        with:
+          context: .
+          file: ./docker/dockerfile
+          push: true
+          platforms: linux/arm64
+          tags: ${{ secrets.DOCKERHUB_USERNAME }}/pdfsaas:latest
+
+      - name: Run Deploy
+        uses: appleboy/ssh-action@master
+        with:
+          command_timeout: 4m
+          host: ${{ secrets.HOST }}
+          username: ${{ secrets.USERNAME }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          script: |
+            ${{secrets.DOCKER_SCRIPT}}
