@@ -2,5 +2,9 @@
 import { signOut } from 'next-auth/react'
 
 export default function LogoutButton() {
-  return <p onClick={() => signOut()}>Log out</p>
+  return (
+    <div className="w-full" onClick={() => signOut()}>
+      Log out
+    </div>
+  )
 }

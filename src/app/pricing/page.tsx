@@ -164,7 +164,7 @@ const Page = async () => {
                     ) : user ? (
                       <UpgradeButton />
                     ) : (
-                      <PriceButton user={user} />
+                      <PriceButton user={user} color={'default'} />
                     )}
                   </div>
                 </div>

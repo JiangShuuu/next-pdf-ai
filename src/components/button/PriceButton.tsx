@@ -11,7 +11,7 @@ interface PriceButtonProps {
     image: string | null
     name: string | null
   } | null
-  color?: string
+  color?: 'default' | 'destructive' | 'outline' | 'secondary' | 'ghost' | 'link' | null | undefined
 }
 
 export default function PriceButton({ user, color }: PriceButtonProps) {
@@ -30,7 +30,7 @@ export default function PriceButton({ user, color }: PriceButtonProps) {
     <button
       className={buttonVariants({
         className: 'w-full',
-        variant: color === 'secondary' ? color : null
+        variant: color
       })}
       onClick={toggle}
     >
