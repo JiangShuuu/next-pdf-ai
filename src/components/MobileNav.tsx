@@ -5,6 +5,9 @@ import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { useEffect, useState } from 'react'
 import useLoginModal from '@/hooks/useLoginModal'
+import { signOut } from 'next-auth/react'
+import { Button } from './ui/button'
+
 const MobileNav = ({ isAuth }: { isAuth: boolean }) => {
   const [isOpen, setOpen] = useState<boolean>(false)
 
@@ -33,24 +36,22 @@ const MobileNav = ({ isAuth }: { isAuth: boolean }) => {
             {!isAuth ? (
               <>
                 <li>
-                  <Link
+                  <p
                     onClick={loginModal.onOpen}
-                    className="flex w-full items-center font-semibold text-green-600"
-                    href="/sign-up"
+                    className="flex w-full cursor-pointer items-center font-semibold text-green-600"
                   >
                     Get started
                     <ArrowRight className="ml-2 h-5 w-5" />
-                  </Link>
+                  </p>
                 </li>
                 <li className="my-3 h-px w-full bg-gray-300" />
                 <li>
-                  <Link
+                  <p
                     onClick={loginModal.onOpen}
-                    className="flex w-full items-center font-semibold"
-                    href="/sign-in"
+                    className="flex w-full cursor-pointer items-center font-semibold"
                   >
                     Sign in
-                  </Link>
+                  </p>
                 </li>
                 <li className="my-3 h-px w-full bg-gray-300" />
                 <li>
@@ -76,9 +77,12 @@ const MobileNav = ({ isAuth }: { isAuth: boolean }) => {
                 </li>
                 <li className="my-3 h-px w-full bg-gray-300" />
                 <li>
-                  <Link className="flex w-full items-center font-semibold" href="/sign-out">
+                  <button
+                    className="flex w-full items-center font-semibold"
+                    onClick={() => signOut()}
+                  >
                     Sign out
-                  </Link>
+                  </button>
                 </li>
               </>
             )}

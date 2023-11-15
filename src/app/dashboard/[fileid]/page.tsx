@@ -1,7 +1,7 @@
 import ChatWrapper from '@/components/chat/ChatWrapper'
 import PdfRenderer from '@/components/PdfRenderer'
 import { db } from '@/db'
-// import { getUserSubscriptionPlan } from '@/lib/stripe'
+import { getUserSubscriptionPlan } from '@/lib/stripe'
 import { notFound, redirect } from 'next/navigation'
 import getCurrentUser from '@/actions/getCurrentUser'
 import { useToast } from '@/components/ui/use-toast'
@@ -35,7 +35,8 @@ const Page = async ({ params }: PageProps) => {
 
   if (!file) notFound()
 
-  // const plan = await getUserSubscriptionPlan()
+  const plan = await getUserSubscriptionPlan()
+  console.log('plan', plan)
 
   return (
     <div className="flex h-[calc(100vh-3.5rem)] flex-1 flex-col justify-between">

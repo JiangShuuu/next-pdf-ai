@@ -18,6 +18,7 @@ import { FcGoogle } from 'react-icons/fc'
 import { FaGithub } from 'react-icons/fa'
 import useRegisterModal from '@/hooks/useRegisterModal'
 import { useRouter } from 'next/navigation'
+import { cn } from '@/lib/utils'
 const formSchema = z.object({
   email: z.string().email(),
   password: z.string()
@@ -101,7 +102,7 @@ export default function LoginModal() {
                 id="email"
                 {...register('email', { required: true })}
                 defaultValue=""
-                className="col-span-3"
+                className={cn('col-span-3', errors.email && 'focus-visible:ring-red-500')}
                 placeholder="example@gmail.com"
               />
               {errors.email && (
@@ -117,7 +118,7 @@ export default function LoginModal() {
               <Input
                 id="password"
                 {...register('password', { required: true })}
-                className="col-span-3"
+                className={cn('col-span-3', errors.password && 'focus-visible:ring-red-500')}
                 type="password"
               />
               {errors.password && (

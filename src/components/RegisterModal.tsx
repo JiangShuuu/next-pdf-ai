@@ -15,6 +15,7 @@ import { trpc } from '@/app/_trpc/client'
 import { useToast } from './ui/use-toast'
 import useRegisterModal from '@/hooks/useRegisterModal'
 import useLoginModal from '@/hooks/useLoginModal'
+import { cn } from '@/lib/utils'
 
 const formSchema = z.object({
   email: z.string().email(),
@@ -113,7 +114,7 @@ export default function RegisterModal() {
                 id="email"
                 {...register('email', { required: true })}
                 defaultValue=""
-                className="col-span-3"
+                className={cn('col-span-3', errors.email && 'focus-visible:ring-red-500')}
                 placeholder="example@gmail.com"
               />
               {errors.email && (
@@ -130,7 +131,7 @@ export default function RegisterModal() {
                 id="name"
                 {...register('name', { required: true })}
                 defaultValue=""
-                className="col-span-3"
+                className={cn('col-span-3', errors.name && 'focus-visible:ring-red-500')}
                 placeholder="John"
               />
               {errors.name && (
@@ -146,7 +147,7 @@ export default function RegisterModal() {
               <Input
                 id="password"
                 {...register('password', { required: true })}
-                className="col-span-3"
+                className={cn('col-span-3', errors.password && 'focus-visible:ring-red-500')}
                 type="password"
               />
               {errors.password && (
