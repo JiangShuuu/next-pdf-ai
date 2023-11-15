@@ -26,6 +26,14 @@ const BillingForm = ({ subscriptionPlan }: BillingFormProps) => {
           variant: 'destructive'
         })
       }
+    },
+    onError: (err) => {
+      console.log(err)
+      toast({
+        title: 'There was a problem...',
+        description: 'Please try again in a moment',
+        variant: 'destructive'
+      })
     }
   })
 
