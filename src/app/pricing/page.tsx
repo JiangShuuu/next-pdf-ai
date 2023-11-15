@@ -1,5 +1,5 @@
 import MaxWidthWrapper from '@/components/MaxWidthWrapper'
-import UpgradeButton from '@/components/UpgradeButton'
+import UpgradeButton from '@/components/button/UpgradeButton'
 import { buttonVariants } from '@/components/ui/button'
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip'
 import { PLANS } from '@/config/stripe'
@@ -7,7 +7,7 @@ import { cn } from '@/lib/utils'
 import { ArrowRight, Check, HelpCircle, Minus } from 'lucide-react'
 import Link from 'next/link'
 import getCurrentUser from '@/actions/getCurrentUser'
-import PriceButton from '@/components/PriceButton'
+import PriceButton from '@/components/button/PriceButton'
 
 const Page = async () => {
   const user = await getCurrentUser()

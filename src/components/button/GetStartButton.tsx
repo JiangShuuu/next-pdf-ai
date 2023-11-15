@@ -11,9 +11,10 @@ interface GetStartButtonProps {
     image: string | null
     email: string | null
   } | null
+  size: 'default' | 'sm' | 'lg' | 'icon' | null | undefined
 }
 
-export default function GetStartButton({ user }: GetStartButtonProps) {
+export default function GetStartButton({ user, size }: GetStartButtonProps) {
   const loginModal = useLoginModal()
   const router = useRouter()
   const toggleStart = () => {
@@ -26,8 +27,7 @@ export default function GetStartButton({ user }: GetStartButtonProps) {
   return (
     <button
       className={buttonVariants({
-        size: 'lg',
-        className: 'mt-5'
+        size
       })}
       onClick={toggleStart}
     >

@@ -2,7 +2,7 @@ import MaxWidthWrapper from '@/components/MaxWidthWrapper'
 import Link from 'next/link'
 import Image from 'next/image'
 import getCurrentUser from '@/actions/getCurrentUser'
-import GetStartButton from '@/components/GetStartButton'
+import GetStartButton from '@/components/button/GetStartButton'
 
 export default async function Home() {
   const user = await getCurrentUser()
@@ -21,7 +21,9 @@ export default async function Home() {
           start asking questions right away.
         </p>
 
-        <GetStartButton user={user} />
+        <div className="mt-5">
+          <GetStartButton user={user} size="lg" />
+        </div>
       </MaxWidthWrapper>
       {/* value proposition section */}
       <div>

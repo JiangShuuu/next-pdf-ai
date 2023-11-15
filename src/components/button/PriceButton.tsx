@@ -1,5 +1,5 @@
 'use client'
-import { buttonVariants } from './ui/button'
+import { buttonVariants } from '../ui/button'
 import { useRouter } from 'next/navigation'
 import useLoginModal from '@/hooks/useLoginModal'
 import { ArrowRight } from 'lucide-react'

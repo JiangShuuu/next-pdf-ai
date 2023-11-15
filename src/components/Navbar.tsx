@@ -1,11 +1,11 @@
-'use client'
 import Link from 'next/link'
 import MaxWidthWrapper from './MaxWidthWrapper'
 import { buttonVariants } from './ui/button'
 import { ArrowRight } from 'lucide-react'
 import UserAccountNav from './UserAccountNav'
 import MobileNav from './MobileNav'
-import useLoginModal from '@/hooks/useLoginModal'
+import GetStartButton from './button/GetStartButton'
+import SigninButton from './button/SigninButton'
 
 interface NavbarProps {
   currentUser: {
@@ -16,7 +16,6 @@ interface NavbarProps {
 }
 
 const Navbar = ({ currentUser }: NavbarProps) => {
-  const loginModal = useLoginModal()
   const user = currentUser
 
   return (
@@ -41,23 +40,8 @@ const Navbar = ({ currentUser }: NavbarProps) => {
                 >
                   Pricing
                 </Link>
-                <button
-                  className={buttonVariants({
-                    variant: 'ghost',
-                    size: 'sm'
-                  })}
-                  onClick={loginModal.onOpen}
-                >
-                  Sign in
-                </button>
-                <button
-                  className={buttonVariants({
-                    size: 'sm'
-                  })}
-                  onClick={loginModal.onOpen}
-                >
-                  Get started <ArrowRight className="ml-1.5 h-5 w-5" />
-                </button>
+                <SigninButton size="sm" />
+                <GetStartButton user={user} size="sm" />
               </>
             ) : (
               <>
