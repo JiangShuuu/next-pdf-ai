@@ -7,6 +7,7 @@ import { cn } from '@/lib/utils'
 import { ArrowRight, Check, HelpCircle, Minus } from 'lucide-react'
 import Link from 'next/link'
 import getCurrentUser from '@/actions/getCurrentUser'
+import PriceButton from '@/components/PriceButton'
 
 const Page = async () => {
   const user = await getCurrentUser()
@@ -159,28 +160,11 @@ const Page = async () => {
                   <div className="border-t border-gray-200" />
                   <div className="p-5">
                     {plan === 'Free' ? (
-                      <Link
-                        href={user ? '/dashboard' : '/sign-in'}
-                        className={buttonVariants({
-                          className: 'w-full',
-                          variant: 'secondary'
-                        })}
-                      >
-                        {user ? 'Upgrade now' : 'Sign up'}
-                        <ArrowRight className="ml-1.5 h-5 w-5" />
-                      </Link>
+                      <PriceButton user={user} color={'secondary'} />
                     ) : user ? (
                       <UpgradeButton />
                     ) : (
-                      <Link
-                        href="/sign-in"
-                        className={buttonVariants({
-                          className: 'w-full'
-                        })}
-                      >
-                        {user ? 'Upgrade now' : 'Sign up'}
-                        <ArrowRight className="ml-1.5 h-5 w-5" />
-                      </Link>
+                      <PriceButton user={user} />
                     )}
                   </div>
                 </div>
