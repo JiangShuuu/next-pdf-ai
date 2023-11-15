@@ -13,7 +13,6 @@ jobs:
 
       - name: create env file
         run: |
-          cd client-chat
           touch .env
           echo DATABASE_URL=${{ secrets.DATABASE_URL }} >> .env
           echo UPLOADTHING_SECRET=${{ secrets.UPLOADTHING_SECRET }} >> .env
@@ -33,12 +32,6 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: 20
-
-      - name: cd file and install
-        run: |
-          cd client-chat
-          pnpm install
-          pnpm run build
 
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v2

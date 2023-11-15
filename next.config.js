@@ -2,7 +2,8 @@
 const nextConfig = {
   output: 'standalone',
   experimental: {
-    appDir: true
+    appDir: true,
+    webpackBuildWorker: true
   },
   async redirects() {
     return [
