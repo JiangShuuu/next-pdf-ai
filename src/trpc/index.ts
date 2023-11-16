@@ -3,7 +3,6 @@ import { TRPCError } from '@trpc/server'
 import { db } from '@/db'
 import { z } from 'zod'
 import { INFINITE_QUERY_LIMIT } from '@/config/infinite-query'
-import { absoluteUrl } from '@/lib/utils'
 import { getUserSubscriptionPlan, stripe } from '@/lib/stripe'
 import { PLANS } from '@/config/stripe'
 import bcrypt from 'bcrypt'
@@ -22,7 +21,7 @@ export const appRouter = router({
   createStripeSession: privateProcedure.mutation(async ({ ctx }) => {
     const { userId } = ctx
 
-    const billingUrl = absoluteUrl('/dashboard/billing')
+    const billingUrl = `${process.env.NEXT_PUBLIC_BASE_URL}/dashboard/billing`
 
     if (!userId) throw new TRPCError({ code: 'UNAUTHORIZED' })
 

@@ -6,12 +6,12 @@ export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs))
 }
 
-export function absoluteUrl(path: string) {
-  if (typeof window !== 'undefined') return path
-  // if (process.env.VERCEL_URL) return `https://${process.env.VERCEL_URL}${path}`
-  if (process.env.BASE_URL) return `https://${process.env.BASE_URL}${path}`
-  return `http://localhost:${process.env.PORT ?? 3000}${path}`
-}
+// export function absoluteUrl(path: string) {
+//   if (typeof window !== 'undefined') return path
+//   // if (process.env.VERCEL_URL) return `https://${process.env.VERCEL_URL}${path}`
+//   if (process.env.BASE_URL) return `https://${process.env.BASE_URL}${path}`
+//   return `http://localhost:${process.env.PORT ?? 3000}${path}`
+// }
 
 export function constructMetadata({
   title = 'PDF-Ai - the Ai Chat SaaS ',
@@ -46,7 +46,7 @@ export function constructMetadata({
       creator: '@joshtriedcoding'
     },
     icons,
-    metadataBase: new URL(`https://${process.env.BASE_URL}`),
+    metadataBase: new URL(`${process.env.NEXT_PUBLIC_BASE_URL}`),
     themeColor: '#FFF',
     ...(noIndex && {
       robots: {

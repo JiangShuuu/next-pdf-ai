@@ -147,7 +147,7 @@ export default function LoginModal() {
                   type="button"
                   variant="outline"
                   size="icon"
-                  onClick={() => signIn('github')}
+                  onClick={() => signIn('github', { callbackUrl: 'http://localhost:3000/bar' })}
                 >
                   <FaGithub className="h-6 w-6" />
                 </Button>
