@@ -26,8 +26,8 @@ jobs:
           echo THIRT_GITHUB_SECRET=${{ secrets.GITHUB_SECRET }} >> .env
           echo GOOGLE_CLIENT_ID=${{ secrets.GOOGLE_CLIENT_ID }} >> .env
           echo GOOGLE_CLIENT_SECRET=${{ secrets.GOOGLE_CLIENT_SECRET }} >> .env
+          echo NEXT_PUBLIC_BASE_URL=${{ secrets.NEXT_PUBLIC_BASE_URL }} >> .env
           echo NEXTAUTH_SECRET=${{ secrets.NEXTAUTH_SECRET }} >> .env
-          echo BASE_URL=${{ secrets.BASE_URL }} >> .env
           echo NEXTAUTH_URL=${{ secrets.NEXTAUTH_URL }} >> .env
 
       - name: Use Node.js Install & Run build # Node
