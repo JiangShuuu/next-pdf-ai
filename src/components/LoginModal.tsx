@@ -147,7 +147,11 @@ export default function LoginModal() {
                   type="button"
                   variant="outline"
                   size="icon"
-                  onClick={() => signIn('github', { callbackUrl: 'http://localhost:3000/bar' })}
+                  onClick={() =>
+                    signIn('github', {
+                      callbackUrl: `${process.env.NEXT_PUBLIC_BASE_URL}/dashboard`
+                    })
+                  }
                 >
                   <FaGithub className="h-6 w-6" />
                 </Button>
