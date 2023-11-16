@@ -61,22 +61,22 @@ const onUploadComplete = async ({
 
     const pagesAmt = pageLevelDocs.length
 
-    // const { subscriptionPlan } = metadata
-    // const { isSubscribed } = subscriptionPlan
+    const { subscriptionPlan } = metadata
+    const { isSubscribed } = subscriptionPlan
 
-    // const isProExceeded = pagesAmt > PLANS.find((plan) => plan.name === 'Pro')!.pagesPerPdf
-    // const isFreeExceeded = pagesAmt > PLANS.find((plan) => plan.name === 'Free')!.pagesPerPdf
+    const isProExceeded = pagesAmt > PLANS.find((plan) => plan.name === 'Pro')!.pagesPerPdf
+    const isFreeExceeded = pagesAmt > PLANS.find((plan) => plan.name === 'Free')!.pagesPerPdf
 
-    // if ((isSubscribed && isProExceeded) || (!isSubscribed && isFreeExceeded)) {
-    //   await db.file.update({
-    //     data: {
-    //       uploadStatus: 'FAILED'
-    //     },
-    //     where: {
-    //       id: createdFile.id
-    //     }
-    //   })
-    // }
+    if ((isSubscribed && isProExceeded) || (!isSubscribed && isFreeExceeded)) {
+      await db.file.update({
+        data: {
+          uploadStatus: 'FAILED'
+        },
+        where: {
+          id: createdFile.id
+        }
+      })
+    }
 
     // vectorize and index entire document
     const pinecone = await getPineconeClient()
