@@ -11,25 +11,6 @@ jobs:
     steps:
       - uses: actions/checkout@v3 # git clone 專案
 
-      - name: create env file
-        run: |
-          touch .env
-          echo DATABASE_URL=${{ secrets.DATABASE_URL }} >> .env
-          echo UPLOADTHING_SECRET=${{ secrets.UPLOADTHING_SECRET }} >> .env
-          echo UPLOADTHING_APP_ID=${{ secrets.UPLOADTHING_APP_ID }} >> .env
-          echo PINECONE_API_KEY=${{ secrets.PINECONE_API_KEY }} >> .env
-          echo OPENAI_API_KEY=${{ secrets.OPENAI_API_KEY }} >> .env
-          echo STRIPE_PRODUCT_ID=${{ secrets.STRIPE_PRODUCT_ID }} >> .env
-          echo STRIPE_SECRET_KEY=${{ secrets.STRIPE_SECRET_KEY }} >> .env
-          echo STRIPE_WEBHOOK_SECRET=${{ secrets.STRIPE_WEBHOOK_SECRET }} >> .env
-          echo GITHUB_ID=${{ secrets.GITHUB_ID }} >> .env
-          echo GITHUB_SECRET=${{ secrets.GITHUB_SECRET }} >> .env
-          echo GOOGLE_CLIENT_ID=${{ secrets.GOOGLE_CLIENT_ID }} >> .env
-          echo GOOGLE_CLIENT_SECRET=${{ secrets.GOOGLE_CLIENT_SECRET }} >> .env
-          echo NEXTAUTH_SECRET=${{ secrets.NEXTAUTH_SECRET }} >> .env
-          echo BASE_URL=${{ secrets.BASE_URL }} >> .env
-          echo NEXTAUTH_URL=${{ secrets.NEXTAUTH_URL }} >> .env
-
       - name: Use Node.js Install & Run build # Node
         uses: actions/setup-node@v3
         with:
