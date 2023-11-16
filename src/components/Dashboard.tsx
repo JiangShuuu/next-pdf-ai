@@ -1,7 +1,7 @@
 'use client'
 
 import { trpc } from '@/app/_trpc/client'
-import UploadButton from './button/UploadButton'
+import UploadButton from '@/components/button/UploadButton'
 import { Ghost, Loader2, MessageSquare, Plus, Trash } from 'lucide-react'
 import Skeleton from 'react-loading-skeleton'
 import Link from 'next/link'
@@ -10,14 +10,14 @@ import { Button } from './ui/button'
 import { useState } from 'react'
 import { getUserSubscriptionPlan } from '@/lib/stripe'
 
-// interface PageProps {
-//   subscriptionPlan: Awaited<ReturnType<typeof getUserSubscriptionPlan>>
-// }
+interface PageProps {
+  subscriptionPlan: Awaited<ReturnType<typeof getUserSubscriptionPlan>>
+}
 
-const Dashboard = ({ subscriptionPlan }: any) => {
+const Dashboard = ({ subscriptionPlan }: PageProps) => {
   const [currentlyDeletingFile, setCurrentlyDeletingFile] = useState<string | null>(null)
 
-  const utils = trpc.useUtils()
+  const utils = trpc.useContext()
 
   const { data: files, isLoading } = trpc.getUserFiles.useQuery()
 
