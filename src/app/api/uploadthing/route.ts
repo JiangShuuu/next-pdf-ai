@@ -4,5 +4,10 @@ import { ourFileRouter } from './core'
 
 // Export routes for Next App Router
 export const { GET, POST } = createNextRouteHandler({
-  router: ourFileRouter
+  router: ourFileRouter,
+  config: {
+    uploadthingId: process.env.UPLOADTHING_APP_ID,
+    uploadthingSecret: process.env.UPLOADTHING_SECRET,
+    callbackUrl: `${process.env.NEXT_PUBLIC_BASE_URL}/api/uploadthing`
+  }
 })
