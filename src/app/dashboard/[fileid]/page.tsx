@@ -23,7 +23,7 @@ const Page = async ({ params }: PageProps) => {
     //   title: 'need Signin'
     // })
 
-    redirect('/dashboard')
+    redirect('/')
   }
 
   const file = await db.file.findFirst({

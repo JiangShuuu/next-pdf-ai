@@ -51,12 +51,26 @@ const UploadDropzone = ({ isSubscribed }: { isSubscribed: boolean }) => {
       onDrop={async (acceptedFile) => {
         setIsUploading(true)
 
-        const progressInterval = startSimulatedProgress()
+        const fileSize = acceptedFile[0].size / 1024 / 1024
 
+        if (fileSize > (isSubscribed ? 16 : 4)) {
+          setIsUploading(false)
+          acceptedFile.splice(0, 1) // remove file
+          return toast({
+            title: 'The file size exceeds the limit.',
+            description: `Files cannot exceed ${isSubscribed ? 16 : 4} MB or Upgrade the plan.`,
+            variant: 'destructive'
+          })
+        }
+
+        const progressInterval = startSimulatedProgress()
         // handle file uploading
         const res = await startUpload(acceptedFile)
 
         if (!res) {
+          clearInterval(progressInterval)
+          setUploadProgress(0)
+          setIsUploading(false)
           return toast({
             title: 'Something went wrong',
             description: 'Please try again later',
@@ -69,6 +83,9 @@ const UploadDropzone = ({ isSubscribed }: { isSubscribed: boolean }) => {
         const key = fileResponse?.key
 
         if (!key) {
+          clearInterval(progressInterval)
+          setUploadProgress(0)
+          setIsUploading(false)
           return toast({
             title: 'Something went wrong',
             description: 'Please try again later',
