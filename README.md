@@ -1,36 +1,73 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# PDF-AI-SAAS (NEXT14 & PRISMA & Trpc & GPT3.5 & NEXTAUTH & STRIPE)
 
-## Getting Started
+Demo: https://pdfaisaas.jiangshuuu.com/
 
-First, run the development server:
+## 瀏覽專案
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+### 產品功能
+
+- 能創建/登入帳戶(含第三方登入)
+- 會員能上傳 PDF
+- 會員能針對 PDF 內容提問
+- 會員能透過 STRIPE 升級方案
+
+### STRIPE 測試信用卡
+
+https://stripe.com/docs/testing
+card: 4242 4242 4242 4242
+date: 大於現在
+CVC: 任何三位數
+
+## 環境
+
+### 框架
+
+- NEXT14 + typeScript + Prisma + MYSQL + Trpc
+
+### 部署
+
+- Oracle + Docker + GithubAction
+
+### 使用套件
+
+- tailwind
+- prisma
+- radix-ui
+- next-auth
+- trpc
+- openai
+- react-dropzone
+- react-hook-form
+- stripe
+- zod
+- zustand
+
+## 如何啟動專案
+
+### 1. 本機需安裝 node.js 與 pnpm
+
+### 2. 開啟終端機建立資料夾或到指定存放位置
+
+### 3. 在該資料夾位置，將專案 clone 到本地
+
+```
+git clone https://github.com/JiangShuuu/next-pdf-ai.git
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### 4. 透過終端機進入資料夾位置後，輸入：
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```
+- pnpm install
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+### 安裝完成後，繼續輸入：
 
-## Learn More
+```
+- pnpm
+```
 
-To learn more about Next.js, take a look at the following resources:
+### 終端機顯示此行訊息代表成功運行，打開瀏覽器進入網址：
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+```
+Listening on http://localhost:3000
+```

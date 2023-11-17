@@ -15,7 +15,7 @@ export function cn(...inputs: ClassValue[]) {
 
 export function constructMetadata({
   title = 'PDF-Ai - the Ai Chat SaaS ',
-  description = 'Quill is an open-source software to make chatting to your PDF files easy.',
+  description = 'PDF-Ai is an open-source software to make chatting to your PDF files easy.',
   image = '/thumbnail.png',
   icons = '/favicon.ico',
   noIndex = false
