@@ -13,10 +13,10 @@ Demo: https://pdfaisaas.jiangshuuu.com/
 
 ### STRIPE 測試信用卡
 
-https://stripe.com/docs/testing
-card: 4242 4242 4242 4242
-date: 大於現在
-CVC: 任何三位數
+- https://stripe.com/docs/testing
+- Card: 4242 4242 4242 4242
+- Date: 大於現在
+- CVC: 任何三位數
 
 ## 環境
 

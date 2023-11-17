@@ -57,7 +57,6 @@ export default function LoginModal() {
       redirect: false
     }).then((callback) => {
       if (callback?.ok) {
-        console.log('callback', callback)
         toast({
           title: 'Success'
         })
