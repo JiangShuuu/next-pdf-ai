@@ -68,7 +68,7 @@ const onUploadComplete = async ({
     const isFreeExceeded = pagesAmt > PLANS.find((plan) => plan.name === 'Free')!.pagesPerPdf
 
     if ((isSubscribed && isProExceeded) || (!isSubscribed && isFreeExceeded)) {
-      await db.file.update({
+      return await db.file.update({
         data: {
           uploadStatus: 'FAILED'
         },
