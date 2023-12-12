@@ -27,7 +27,7 @@ const ChatInput = ({ isDisabled }: ChatInputProps) => {
                 onChange={handleInputChange}
                 value={message}
                 onKeyDown={(e) => {
-                  if (e.key === 'Enter' && !e.shiftKey) {
+                  if (e.key === 'Enter' && !e.shiftKey && message && !isLoading) {
                     e.preventDefault()
 
                     addMessage()

@@ -50,7 +50,10 @@ export const ChatContextProvider = ({ fileId, children }: Props) => {
       return response.body
     },
     onMutate: async ({ message }) => {
+      setIsLoading(true)
+
       backupMessage.current = message
+
       setMessage('')
 
       // step 1
@@ -89,8 +92,6 @@ export const ChatContextProvider = ({ fileId, children }: Props) => {
           pages: newPages
         }
       })
-
-      setIsLoading(true)
 
       return {
         previousMessages: previousMessages?.pages.flatMap((page) => page.messages) ?? []
@@ -184,7 +185,11 @@ export const ChatContextProvider = ({ fileId, children }: Props) => {
     setMessage(e.target.value)
   }
 
-  const addMessage = () => sendMessage({ message })
+  const addMessage = () => {
+    if (message.trim()) {
+      sendMessage({ message })
+    }
+  }
 
   return (
     <ChatContext.Provider
