@@ -50,8 +50,6 @@ export const ChatContextProvider = ({ fileId, children }: Props) => {
       return response.body
     },
     onMutate: async ({ message }) => {
-      setIsLoading(true)
-
       backupMessage.current = message
 
       setMessage('')
@@ -93,14 +91,15 @@ export const ChatContextProvider = ({ fileId, children }: Props) => {
         }
       })
 
+      setIsLoading(true)
+
       return {
         previousMessages: previousMessages?.pages.flatMap((page) => page.messages) ?? []
       }
     },
     onSuccess: async (stream) => {
-      setIsLoading(false)
-
       if (!stream) {
+        setIsLoading(false)
         return toast({
           title: 'There was a problem sending this message',
           description: 'Please refresh this page and try again',
@@ -119,6 +118,7 @@ export const ChatContextProvider = ({ fileId, children }: Props) => {
         const { value, done: doneReading } = await reader.read()
         done = doneReading
         const chunkValue = decoder.decode(value)
+        console.log('chunkValue', chunkValue, doneReading)
 
         accResponse += chunkValue
 
@@ -127,10 +127,15 @@ export const ChatContextProvider = ({ fileId, children }: Props) => {
           if (!old) return { pages: [], pageParams: [] }
 
           let isAiResponseCreated = old.pages.some((page) =>
-            page.messages.some((message) => message.id === 'ai-response')
+            page.messages.some((message) => {
+              console.log('page.messages', message)
+              return message.id === 'ai-response'
+            })
           )
+          console.log('isAiResponseCreated', isAiResponseCreated)
 
           let updatedPages = old.pages.map((page) => {
+            console.log('old.pages.map', page, old.pages[0])
             if (page === old.pages[0]) {
               let updatedMessages
 
@@ -155,16 +160,17 @@ export const ChatContextProvider = ({ fileId, children }: Props) => {
                   return message
                 })
               }
+              console.log('return', page, updatedMessages)
 
               return {
                 ...page,
                 messages: updatedMessages
               }
             }
-
+            console.log('return02', page)
             return page
           })
-
+          console.log('return03', old, updatedPages)
           return { ...old, pages: updatedPages }
         })
       }
