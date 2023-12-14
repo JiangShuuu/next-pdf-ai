@@ -44,7 +44,7 @@ const Page = async () => {
       quota: PLANS.find((p) => p.slug === 'pro')!.quota,
       features: [
         {
-          text: '25 pages per PDF',
+          text: `${PLANS.find((p) => p.slug === 'pro')!.pagesPerPdf} pages per PDF`,
           footnote: 'The maximum amount of pages per PDF-file.'
         },
         {
