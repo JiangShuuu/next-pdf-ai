@@ -167,7 +167,11 @@ const UploadButton = ({ isSubscribed }: { isSubscribed: boolean }) => {
         <Button>Upload PDF</Button>
       </DialogTrigger>
 
-      <DialogContent>
+      <DialogContent
+        onPointerDownOutside={(e) => {
+          e.preventDefault()
+        }}
+      >
         <UploadDropzone isSubscribed={isSubscribed} />
       </DialogContent>
     </Dialog>
