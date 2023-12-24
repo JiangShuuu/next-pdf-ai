@@ -62,7 +62,9 @@ const PdfRenderer = ({ url }: PdfRendererProps) => {
     resolver: zodResolver(CustomPageValidator)
   })
 
-  const { width, ref } = useResizeDetector()
+  console.log(errors)
+
+  const { width, ref, height } = useResizeDetector()
 
   const handlePageSubmit = ({ page }: TCustomPageValidator) => {
     setCurrPage(Number(page))
@@ -84,6 +86,7 @@ const PdfRenderer = ({ url }: PdfRendererProps) => {
           >
             <ChevronDown className="h-4 w-4" />
           </Button>
+
           <div className="flex items-center gap-1.5">
             <Input
               {...register('page')}
@@ -99,6 +102,7 @@ const PdfRenderer = ({ url }: PdfRendererProps) => {
               <span>{numPages ?? 'x'}</span>
             </p>
           </div>
+
           <Button
             disabled={numPages === undefined || currPage === numPages}
             onClick={() => {
@@ -143,7 +147,7 @@ const PdfRenderer = ({ url }: PdfRendererProps) => {
 
       <div className="max-h-screen w-full flex-1">
         <SimpleBar autoHide={false} className="max-h-[calc(100vh-10rem)]">
-          <div ref={ref}>
+          <div ref={ref} className="h-[calc(100vh-10rem)]">
             <Document
               loading={
                 <div className="flex justify-center">
@@ -159,7 +163,6 @@ const PdfRenderer = ({ url }: PdfRendererProps) => {
               }}
               onLoadSuccess={({ numPages }) => setNumPages(numPages)}
               file={url}
-              className="max-h-full"
             >
               {isLoading && renderedScale ? (
                 <Page
