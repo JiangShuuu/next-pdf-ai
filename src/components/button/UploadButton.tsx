@@ -12,6 +12,35 @@ import { useToast } from '../ui/use-toast'
 import { trpc } from '@/app/_trpc/client'
 import { useRouter } from 'next/navigation'
 
+function UploadProgressComponent({ uploadProgress }: { uploadProgress: number }) {
+  return (
+    <div className="m-4 h-64 rounded-lg border border-dashed border-gray-300">
+      <div className="flex h-full w-full items-center justify-center">
+        <div className="flex h-full w-full flex-col items-center justify-center rounded-lg bg-gray-50">
+          <div className="mx-auto mt-4 w-full max-w-xs">
+            <Progress
+              indicatorColor={uploadProgress === 100 ? 'bg-green-500' : ''}
+              value={uploadProgress}
+              className="h-1 w-full bg-zinc-200"
+            />
+            {uploadProgress === 100 ? (
+              <div className="flex items-center justify-center gap-1 pt-2 text-center text-sm text-zinc-700">
+                <Loader2 className="h-3 w-3 animate-spin" />
+                Redirecting...
+              </div>
+            ) : (
+              <div className="flex items-center justify-center gap-1 pt-2 text-center text-sm text-zinc-700">
+                <Loader2 className="h-3 w-3 animate-spin" />
+                Uploading...
+              </div>
+            )}
+          </div>
+        </div>
+      </div>
+    </div>
+  )
+}
+
 const UploadDropzone = ({ isSubscribed }: { isSubscribed: boolean }) => {
   const router = useRouter()
 
@@ -43,6 +72,10 @@ const UploadDropzone = ({ isSubscribed }: { isSubscribed: boolean }) => {
     }, 500)
 
     return interval
+  }
+
+  if (isUploading) {
+    return <UploadProgressComponent uploadProgress={uploadProgress} />
   }
 
   return (

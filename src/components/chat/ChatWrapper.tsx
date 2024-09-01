@@ -93,7 +93,6 @@ const ChatWrapper = ({ fileId, isSubscribed }: ChatWrapperProps) => {
         <div className="mb-28 flex flex-1 flex-col justify-between">
           <Messages fileId={fileId} />
         </div>
-
         <ChatInput />
       </div>
     </ChatContextProvider>
